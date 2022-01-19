@@ -1,6 +1,9 @@
-const { GraphQLObjectType, GraphQLString } = require("graphql");
+const { GraphQLObjectType, GraphQLString, GraphQLList } = require("graphql");
 
-const sharedSchema = require("./shared")
+const { version } = require("../request/version")
+
+const sharedSchema = require("./shared");
+const { VersionSchema } = require("./version");
 
 exports.EditionSchema = new GraphQLObjectType({
     name: "Edition",
@@ -11,6 +14,24 @@ exports.EditionSchema = new GraphQLObjectType({
         description: { type: GraphQLString },
         links: { type: links },
         state: { type: GraphQLString },
+        version: {
+            type: VersionSchema,
+            args: {
+                versionID: { type: GraphQLString },
+            },
+            resolve: (edition, args) => {
+                return version.get(edition.links.dataset.id, edition.edition, args.versionID)
+            }
+        },
+        versions: {
+            type: new GraphQLList(VersionSchema),
+            args: {
+                editionID: { type: GraphQLString },
+            },
+            resolve: (edition) => {
+                return version.getAll(edition.edition)
+            }
+        }
     })
 })
 

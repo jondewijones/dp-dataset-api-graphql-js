@@ -9,9 +9,11 @@ const  {
 
 const { dataset } = require("../request/dataset")
 const { edition } = require("../request/edition")
+const { version } = require("../request/version")
 
 const { DatasetSchema } = require("./dataset");
 const { EditionSchema } = require("./edition");
+const { VersionSchema } = require("./version");
 
 exports.schema = new GraphQLSchema({
     query: new GraphQLObjectType({
@@ -53,6 +55,27 @@ exports.schema = new GraphQLSchema({
                     limit: { type: GraphQLInt }
                 },
                 resolve: (_, args) => edition.getAll(args.datasetID, args.offset, args.limit)
+            },
+            version: {
+                type: VersionSchema,
+                description: "A version",
+                args: {
+                    datasetID: { type: GraphQLString },
+                    editionID: { type: GraphQLString },
+                    versionID: { type: GraphQLString }
+                },
+                resolve: (_, args) => version.get(args.datasetID, args.editionID, args.versionID)
+            },
+            versions: {
+                type: new GraphQLList(VersionSchema),
+                description: "List of all versions for an edition of a dataset",
+                args: {
+                    datasetID: { type: GraphQLString },
+                    editionID: { type: GraphQLString },
+                    offset: { type: GraphQLInt },
+                    limit: { type: GraphQLInt }
+                },
+                resolve: (_, args) => version.getAll(args.datasetID, args.editionID, args.offset, args.limit)
             },
         })
     })
