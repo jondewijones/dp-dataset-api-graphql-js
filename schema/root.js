@@ -8,8 +8,10 @@ const  {
   } = require("graphql");
 
 const { dataset } = require("../request/dataset")
+const { edition } = require("../request/edition")
 
-const { DatasetSchema } = require("./dataset.js");
+const { DatasetSchema } = require("./dataset");
+const { EditionSchema } = require("./edition");
 
 exports.schema = new GraphQLSchema({
     query: new GraphQLObjectType({
@@ -32,6 +34,25 @@ exports.schema = new GraphQLSchema({
                     limit: { type: GraphQLInt }
                 },
                 resolve: (_, args) => dataset.getAll(args.offset, args.limit)
+            },
+            edition: {
+                type: EditionSchema,
+                description: "An edition",
+                args: {
+                    datasetID: { type: GraphQLString },
+                    editionID: { type: GraphQLString }
+                },
+                resolve: (_, args) => edition.get(args.datasetID, args.editionID)
+            },
+            editions: {
+                type: new GraphQLList(EditionSchema),
+                description: "List of all editions for a dataset",
+                args: {
+                    datasetID: { type: GraphQLString },
+                    offset: { type: GraphQLInt },
+                    limit: { type: GraphQLInt }
+                },
+                resolve: (_, args) => edition.getAll(args.datasetID, args.offset, args.limit)
             },
         })
     })

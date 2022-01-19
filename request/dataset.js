@@ -11,7 +11,7 @@ class dataset {
 
     static getAll = (offset, limit) => {
         const url = `/datasets?offset=${ offset ? offset : DEFAULT_OFFSET_SIZE }&limit=${ limit ? limit : DEFAULT_LIMIT_SIZE }`;
-        return request.get(url).then(response => (response.items))
+        return request.get(url).then(response => (response.items));
     }
 }
 
