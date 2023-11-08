@@ -5,7 +5,7 @@ const { schema } = require("./schema/root")
 
 const BIND_ADDR = process.env.BIND_ADDR || 8080
 
-var app = express();
+const app = express();
 app.use("/", graphqlHTTP({
     schema: schema,
     graphiql: true,
