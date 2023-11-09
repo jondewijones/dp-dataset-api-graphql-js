@@ -1,21 +1,21 @@
-const  {
+import  {
     graphql,
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLString,
     GraphQLList,
     GraphQLInt,
-  } = require("graphql");
+  } from "graphql";
 
-const { dataset } = require("../request/dataset")
-const { edition } = require("../request/edition")
-const { version } = require("../request/version")
+import { dataset } from "../request/dataset.js";
+import { edition } from "../request/edition.js";
+import { version } from "../request/version.js";
 
-const { DatasetSchema } = require("./dataset");
-const { EditionSchema } = require("./edition");
-const { VersionSchema } = require("./version");
+import { DatasetSchema } from "./dataset.js";
+import { EditionSchema } from "./edition.js";
+import { VersionSchema } from "./version.js";
 
-exports.schema = new GraphQLSchema({
+export const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: "RootQuery",
         description: "Root Query",

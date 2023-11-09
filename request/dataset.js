@@ -1,9 +1,9 @@
-const { request } = require("./request")
+import request from "./request.js";
 
 const DEFAULT_OFFSET_SIZE = 0;
 const DEFAULT_LIMIT_SIZE = 20;
 
-class dataset {
+export class dataset {
     static get = (id) => {
         const url = `/datasets/${id}`;
         return request.get(url);
@@ -14,5 +14,3 @@ class dataset {
         return request.get(url).then(response => (response.items));
     }
 }
-
-exports.dataset = dataset

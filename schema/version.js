@@ -1,8 +1,8 @@
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = require("graphql");
+import { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } from "graphql";
 
-const sharedSchema = require("./shared")
+import { sharedLink } from "./shared.js";
 
-exports.VersionSchema = new GraphQLObjectType({
+export const VersionSchema = new GraphQLObjectType({
     name: "Version",
     description: "Represents a version",
     fields: () => ({
@@ -25,13 +25,13 @@ const links = new GraphQLObjectType({
     name: "VersionLinks",
     description: "A list of links related to this resource",
     fields: () => ({
-        dataset: { type: sharedSchema.link },
-        dimensions: { type: sharedSchema.link },
-        edition: { type: sharedSchema.link },
-        job: { type: sharedSchema.link },
-        self: { type: sharedSchema.link },
-        spatial: { type: sharedSchema.link },
-        version: { type: sharedSchema.link },
+        dataset: { type: sharedLink },
+        dimensions: { type: sharedLink },
+        edition: { type: sharedLink },
+        job: { type: sharedLink },
+        self: { type: sharedLink },
+        spatial: { type: sharedLink },
+        version: { type: sharedLink },
     })  
 });
 

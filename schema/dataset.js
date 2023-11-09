@@ -1,10 +1,10 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } = require("graphql");
-const { edition } = require("../request/edition");
-const { EditionSchema } = require("./edition");
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } from "graphql";
+import { edition } from "../request/edition.js";
+import { EditionSchema } from "./edition.js";
 
-const sharedSchema = require("./shared")
+import { sharedLink } from "./shared.js";
 
-exports.DatasetSchema = new GraphQLObjectType({
+export const DatasetSchema = new GraphQLObjectType({
     name: "Dataset",
     description: "Represents a dataset",
     fields: () => ({
@@ -21,13 +21,13 @@ exports.DatasetSchema = new GraphQLObjectType({
         collection_id: { type: GraphQLString },
         license: { type: GraphQLString },
         links: { type: links },
-        methodologies: { type: new GraphQLList(sharedSchema.link) },
+        methodologies: { type: new GraphQLList(sharedLink) },
         next_release: { type: GraphQLString },
         nomis_ref_url: { type: GraphQLString },
-        publications: { type: new GraphQLList(sharedSchema.link) },
+        publications: { type: new GraphQLList(sharedLink) },
         publisher: { type: publisher },
         qmi: { type: qmi },
-        related_datasets: { type: new GraphQLList(sharedSchema.link) },
+        related_datasets: { type: new GraphQLList(sharedLink) },
         release_frequency: { type: GraphQLString },
         edition: {
             type: EditionSchema,
@@ -64,11 +64,11 @@ const links = new GraphQLObjectType({
     name: "DatasetLinks",
     description: "A list of links related to this resource",
     fields: () => ({
-        access_rights: { type: sharedSchema.link },
-        editions: { type: sharedSchema.link },
-        latest_version: { type: sharedSchema.link },
-        self: { type: sharedSchema.link },
-        taxonomy: { type: sharedSchema.link }
+        access_rights: { type: sharedLink },
+        editions: { type: sharedLink },
+        latest_version: { type: sharedLink },
+        self: { type: sharedLink },
+        taxonomy: { type: sharedLink }
     })
 });
 

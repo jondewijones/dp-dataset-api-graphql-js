@@ -1,7 +1,6 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-
-const { schema } = require("./schema/root")
+import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import { schema } from "./schema/root.js";
 
 const BIND_ADDR = process.env.BIND_ADDR || 8080
 

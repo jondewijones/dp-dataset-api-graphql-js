@@ -1,7 +1,7 @@
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } = require("graphql");
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } from "graphql";
 
 
-const link = new GraphQLObjectType({
+export const sharedLink = new GraphQLObjectType({
     name: "Link",
     description: "Link and information about a resourece",
     fields: () => ({
@@ -10,7 +10,3 @@ const link = new GraphQLObjectType({
         description: { type: GraphQLString }
     })
 });
-
-module.exports = {
-    link: link
-}

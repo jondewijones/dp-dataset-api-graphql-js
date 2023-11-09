@@ -1,11 +1,11 @@
-const { GraphQLObjectType, GraphQLString, GraphQLList } = require("graphql");
+import { GraphQLObjectType, GraphQLString, GraphQLList } from "graphql";
 
-const { version } = require("../request/version")
+import { version } from "../request/version.js";
 
-const sharedSchema = require("./shared");
-const { VersionSchema } = require("./version");
+import { sharedLink } from "./shared.js";
+import { VersionSchema } from "./version.js";
 
-exports.EditionSchema = new GraphQLObjectType({
+export const EditionSchema = new GraphQLObjectType({
     name: "Edition",
     description: "Represents an edition",
     fields: () => ({
@@ -39,9 +39,9 @@ const links = new GraphQLObjectType({
     name: "EditionLinks",
     description: "A list of links related to this resource",
     fields: () => ({
-        dataset: { type: sharedSchema.link },
-        latest_version: { type: sharedSchema.link },
-        self: { type: sharedSchema.link },
-        taxonomy: { type: sharedSchema.link }
+        dataset: { type: sharedLink },
+        latest_version: { type: sharedLink },
+        self: { type: sharedLink },
+        taxonomy: { type: sharedLink }
     })  
 });
