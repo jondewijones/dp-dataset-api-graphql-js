@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLString, GraphQLList } from "graphql";
 
-import { version } from "../request/version.js";
+import { getVersion, getAllVersions } from "../request/version.js";
 
 import { sharedLink } from "./shared.js";
 import { VersionSchema } from "./version.js";
@@ -20,7 +20,7 @@ export const EditionSchema = new GraphQLObjectType({
                 versionID: { type: GraphQLString },
             },
             resolve: (edition, args) => {
-                return version.get(edition.links.dataset.id, edition.edition, args.versionID)
+                return getVersion(edition.links.dataset.id, edition.edition, args.versionID)
             }
         },
         versions: {
@@ -29,7 +29,7 @@ export const EditionSchema = new GraphQLObjectType({
                 editionID: { type: GraphQLString },
             },
             resolve: (edition) => {
-                return version.getAll(edition.edition)
+                return getAllVersions(edition.edition)
             }
         }
     })

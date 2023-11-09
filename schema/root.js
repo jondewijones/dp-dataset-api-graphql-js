@@ -7,9 +7,9 @@ import  {
     GraphQLInt,
   } from "graphql";
 
-import { dataset } from "../request/dataset.js";
-import { edition } from "../request/edition.js";
-import { version } from "../request/version.js";
+import { getDataset, getAllDatasets } from "../request/dataset.js";
+import { getEdition, getAllEditions } from "../request/edition.js";
+import { getVersion, getAllVersions } from "../request/version.js";
 
 import { DatasetSchema } from "./dataset.js";
 import { EditionSchema } from "./edition.js";
@@ -26,7 +26,7 @@ export const schema = new GraphQLSchema({
                 args: {
                     id: { type: GraphQLString }
                 },
-                resolve: (_, args) => dataset.get(args.id)
+                resolve: (_, args) => getDataset(args.id)
             },
             datasets: {
                 type: new GraphQLList(DatasetSchema),
@@ -35,7 +35,7 @@ export const schema = new GraphQLSchema({
                     offset: { type: GraphQLInt },
                     limit: { type: GraphQLInt }
                 },
-                resolve: (_, args) => dataset.getAll(args.offset, args.limit)
+                resolve: (_, args) => getAllDatasets(args.offset, args.limit)
             },
             edition: {
                 type: EditionSchema,
@@ -44,7 +44,7 @@ export const schema = new GraphQLSchema({
                     datasetID: { type: GraphQLString },
                     editionID: { type: GraphQLString }
                 },
-                resolve: (_, args) => edition.get(args.datasetID, args.editionID)
+                resolve: (_, args) => getEdition(args.datasetID, args.editionID)
             },
             editions: {
                 type: new GraphQLList(EditionSchema),
@@ -54,7 +54,7 @@ export const schema = new GraphQLSchema({
                     offset: { type: GraphQLInt },
                     limit: { type: GraphQLInt }
                 },
-                resolve: (_, args) => edition.getAll(args.datasetID, args.offset, args.limit)
+                resolve: (_, args) => getAllEditions(args.datasetID, args.offset, args.limit)
             },
             version: {
                 type: VersionSchema,
@@ -64,7 +64,7 @@ export const schema = new GraphQLSchema({
                     editionID: { type: GraphQLString },
                     versionID: { type: GraphQLString }
                 },
-                resolve: (_, args) => version.get(args.datasetID, args.editionID, args.versionID)
+                resolve: (_, args) => getVersion(args.datasetID, args.editionID, args.versionID)
             },
             versions: {
                 type: new GraphQLList(VersionSchema),
@@ -75,7 +75,7 @@ export const schema = new GraphQLSchema({
                     offset: { type: GraphQLInt },
                     limit: { type: GraphQLInt }
                 },
-                resolve: (_, args) => version.getAll(args.datasetID, args.editionID, args.offset, args.limit)
+                resolve: (_, args) => getAllVersions(args.datasetID, args.editionID, args.offset, args.limit)
             },
         })
     })

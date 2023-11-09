@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean, GraphQLList } from "graphql";
-import { edition } from "../request/edition.js";
+import { getEdition, getAllEditions} from "../request/edition.js";
 import { EditionSchema } from "./edition.js";
 
 import { sharedLink } from "./shared.js";
@@ -35,7 +35,7 @@ export const DatasetSchema = new GraphQLObjectType({
                 editionID: { type: GraphQLString },
             },
             resolve: (dataset, args) => {
-                return edition.get(dataset.id, args.editionID)
+                return getEdition(dataset.id, args.editionID)
             }
         },
         editions: {
@@ -44,7 +44,7 @@ export const DatasetSchema = new GraphQLObjectType({
                 editionID: { type: GraphQLString },
             },
             resolve: (dataset) => {
-                return edition.getAll(dataset.id)
+                return getAllEditions(dataset.id)
             }
         }
     })
