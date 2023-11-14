@@ -8,5 +8,11 @@ const app = express();
 app.use("/", graphqlHTTP({
     schema: schema,
     graphiql: true,
+    formatError: (err) => {
+        if (err.message === "Request failed with status code 429") {
+            err.message = "Request rate limited. " + err.message;
+        }
+        return ({ message: err.message, statusCode: err.statusCode })
+      }
 }));
 app.listen(BIND_ADDR, () => console.log(`server started on http://localhost:${BIND_ADDR}`));
