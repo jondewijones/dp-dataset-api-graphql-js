@@ -10,5 +10,5 @@ export const getEdition = (datasetID, editionID) => {
 
 export const getAllEditions = (datasetID, offset, limit) => {
     const url = `/datasets/${datasetID}/editions?offset=${ offset ? offset : DEFAULT_OFFSET_SIZE }&limit=${ limit ? limit : DEFAULT_LIMIT_SIZE }`;
-    return request(url).then(response => (response.items));
+    return request(url).then(response => response.items);
 }
