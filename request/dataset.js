@@ -5,7 +5,7 @@ const DEFAULT_LIMIT_SIZE = 20;
 
 export const getDataset = (id) => {
     const url = `/datasets/${id}`;
-    return request.get(url);
+    return request(url);
 } 
 
 export const getAllDatasets = (offset, limit) => {
