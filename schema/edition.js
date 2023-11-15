@@ -29,7 +29,7 @@ export const EditionSchema = new GraphQLObjectType({
                 editionID: { type: GraphQLString },
             },
             resolve: (edition) => {
-                return getAllVersions(edition.edition)
+                return getAllVersions(edition.links.dataset.id, edition.edition)
             }
         }
     })
